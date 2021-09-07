@@ -13,18 +13,18 @@ function App() {
          <h2 className="text-primary py-3">DashBoard de Vendas</h2>
             <div className="row px-3">
                 <div className="col-sm-6">
-                    <h5>Porcentagem de Sucesso</h5>
+                    <h5 className="text-center text-secondary">Taxa de Sucesso (%)</h5>
                     <Barchart />
                 </div>
 
                 <div className="col-sm-6">
-                    <h5>Porcentagem da Rosca</h5>
+                    <h5 className="text-center text-secondary">Todas as Vendas</h5>
                     <Donutchart />
                 </div>
 
 
             </div>
-         
+            <h2 className="text-primary py-3">Todas as Vendas</h2>
          <DataTable />
          
        </div>
