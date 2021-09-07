@@ -6,9 +6,15 @@
 a {
   text-decoration: none !important;
   color: inherit !important;
-  
+}
+a:visited important { 
+    color: inherit !important;
 }
 
+a:hover {
+    transition: all 150ms linear 0s;
+    color: coral !important;
+}
 
 html, body {
     height: 100%;
