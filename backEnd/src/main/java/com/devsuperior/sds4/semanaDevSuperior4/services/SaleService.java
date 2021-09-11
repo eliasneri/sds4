@@ -1,5 +1,7 @@
 package com.devsuperior.sds4.semanaDevSuperior4.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.sds4.semanaDevSuperior4.dto.SaleDTO;
+import com.devsuperior.sds4.semanaDevSuperior4.dto.SaleSucessDTO;
+import com.devsuperior.sds4.semanaDevSuperior4.dto.SaleSumDTO;
 import com.devsuperior.sds4.semanaDevSuperior4.entities.Sale;
 import com.devsuperior.sds4.semanaDevSuperior4.repositories.SaleRepository;
 import com.devsuperior.sds4.semanaDevSuperior4.repositories.SellerRepository;
@@ -26,4 +30,14 @@ public class SaleService {
 		Page<Sale> result = repository.findAll(pageable);
 		return result.map(x -> new SaleDTO(x));
 	}
+	
+	@Transactional(readOnly = true)
+	public List<SaleSumDTO> amountGrupedBySeller() {
+		return repository.amountGrupedBySeller();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<SaleSucessDTO> sucessGrupedBySeller() {
+		return repository.sucessGrupedBySeller();
+	}	
 }
