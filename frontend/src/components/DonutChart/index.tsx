@@ -1,6 +1,7 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import Chart from "react-apexcharts";
+import { useState } from 'react';
 import { BASE_URL } from "utils/request";
 import { SaleSum} from 'types/sale';
 
@@ -10,25 +11,21 @@ type ChartData = {
     series: number[]
 }
 
-
 const Donutchart = () => {
 
-    let chartData : ChartData = {labels:[], series:[]};
-
-    axios.get(`${BASE_URL}/sales/sum-by-seller`).then( response =>{
-                    const data = response.data as SaleSum[];
-                    const myLabels = data.map(x => x.sellerName);
-                    const mySeries = data.map(x => x.sum);
-                    chartData = {labels: myLabels, series:mySeries}
-                    console.log(response.data)
-                    })
+    const [chartData, setChartData] = useState<ChartData>({labels:[], series:[]});
     
-     const mockData = {
-        series: [],
-        labels: []
-     }
-
-    const options = {
+    useEffect(()=>{
+        axios.get(`${BASE_URL}/sales/sum-by-seller`).then( response =>{
+            const data = response.data as SaleSum[];
+            const myLabels = data.map(x => x.sellerName);
+            const mySeries = data.map(x => x.sum);
+            setChartData({ labels: myLabels, series:mySeries })
+            })
+         }, []);
+    
+    
+     const options = {
         legend: {
             show: true
         }
@@ -36,8 +33,8 @@ const Donutchart = () => {
     
     return (
         <Chart 
-            options={{...options, labels: mockData.labels}}
-            series={mockData.series}
+            options={{...options, labels: chartData.labels}}
+            series={chartData.series}
             type="donut"
             height="240"
         />
